@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { env } from './config/env.js';
 import healthRoutes from './routes/health.routes.js';
+import publicRoutes from './routes/public.routes.js';
 import { apiLimiter } from './middleware/rateLimiters.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
@@ -32,6 +33,7 @@ app.use('/api/', apiLimiter);
 
 // API v1 routes
 app.use('/api/v1', healthRoutes);
+app.use('/api/v1', publicRoutes);
 
 // 404 handler for unknown routes
 app.use('/api/*', (_req, res) => {

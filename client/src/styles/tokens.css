@@ -1,15 +1,24 @@
 :root {
-  --color-primary: #03045E;   /* deep blue */
-  --color-accent: #EDAE49;    /* gold */
+  /* Brand colors */
+  --color-primary: #03045E;   /* Deep Blue */
+  --color-accent: #EDAE49;    /* Gold */
   --color-white: #FFFFFF;
   --color-page-bg: #F7F8FC;
   --color-border: #E3E6EF;
   --color-text: #25283A;
   --color-muted: #62677A;
 
+  /* Semantic status */
+  --color-success: #1E7E34;
+  --color-error: #D90429;
+  --color-warning-bg: #FFF8E7;
+
+  /* Radii */
   --radius-card: 10px;
   --radius-button: 8px;
+  --radius-input: 6px;
 
+  /* Spacing Scale */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -19,22 +28,13 @@
   --space-12: 48px;
   --space-16: 64px;
 
+  /* Layout */
   --container-width: 1200px;
 
   /* Typography */
-  --font-family-base: 'Inter', sans-serif;
-  --font-family-hindi: 'Noto Sans Devanagari', sans-serif;
-}
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-hindi: 'Noto Sans Devanagari', -apple-system, sans-serif;
 
-/* Base resets */
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--color-page-bg);
-  color: var(--color-text);
-  font-family: var(--font-family-base);
-}
-
-* {
-  box-sizing: border-box;
+  /* Transitions */
+  --transition-fast: 180ms ease-in-out;
 }
