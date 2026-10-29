@@ -9,7 +9,7 @@ const envSchema = z.object({
   CLIENT_ORIGIN: z.string().default('http://localhost:3000'),
   // MONGODB_URI is optional in test/dev so health-check / route testing can run without a live database.
   // In production, it must be provided.
-  MONGODB_URI: z.string().optional(),
+  MONGODB_URI: z.string().default("mongodb://localhost:27017/np_associates"),
   SESSION_SECRET: z.string().min(16).default('dev_session_secret_change_in_production_32char_min'),
   BUSINESS_PHONE: z.string().default('7728956389'),
   BUSINESS_WHATSAPP: z.string().default('7728956389'),
