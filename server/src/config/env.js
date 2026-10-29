@@ -11,8 +11,8 @@ const envSchema = z.object({
   // In production, it must be provided.
   MONGODB_URI: z.string().optional(),
   SESSION_SECRET: z.string().min(16).default('dev_session_secret_change_in_production_32char_min'),
-  BUSINESS_PHONE: z.string().default('To be confirmed'),
-  BUSINESS_WHATSAPP: z.string().default('To be confirmed'),
+  BUSINESS_PHONE: z.string().default('7728956389'),
+  BUSINESS_WHATSAPP: z.string().default('7728956389'),
 });
 
 const parsed = envSchema.safeParse(process.env);

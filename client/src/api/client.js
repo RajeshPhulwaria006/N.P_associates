@@ -1,4 +1,4 @@
-// Native fetch wrapper with consistent error normalization
+// Native fetch wrapper with consistent error normalization and CSRF token handling
 
 const API_BASE = '/api/v1';
 
@@ -12,15 +12,29 @@ export class ApiError extends Error {
   }
 }
 
+function getCsrfToken() {
+  if (typeof document === 'undefined') return '';
+  const match = document.cookie.match(/np_csrf_token=([^;]+)/);
+  return match ? match[1] : '';
+}
+
 export async function apiClient(endpoint, options = {}) {
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
 
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
+
+  const csrfToken = getCsrfToken();
+  if (csrfToken && !headers['X-CSRF-Token']) {
+    headers['X-CSRF-Token'] = csrfToken;
+  }
+
   const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
+    credentials: 'include', // send session cookies
     ...options,
+    headers,
   };
 
   try {
@@ -49,6 +63,7 @@ export async function apiClient(endpoint, options = {}) {
 
 // Convenient helpers
 export const api = {
+  // Public
   getServices: () => apiClient('/services'),
   getServiceBySlug: (slug) => apiClient(`/services/${slug}`),
   getGuidelines: () => apiClient('/guidelines'),
@@ -57,6 +72,55 @@ export const api = {
   submitEnquiry: (payload) =>
     apiClient('/enquiries', {
       method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  // Admin Auth
+  adminLogin: (credentials) =>
+    apiClient('/admin/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    }),
+  adminLogout: () =>
+    apiClient('/admin/auth/logout', {
+      method: 'POST',
+    }),
+  getAdminMe: () => apiClient('/admin/auth/me'),
+
+  // Admin Operations
+  getAdminDashboard: () => apiClient('/admin/dashboard'),
+  getAdminEnquiries: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return apiClient(`/admin/enquiries${query ? `?${query}` : ''}`);
+  },
+  getAdminEnquiryById: (id) => apiClient(`/admin/enquiries/${id}`),
+  updateAdminEnquiry: (id, payload) =>
+    apiClient(`/admin/enquiries/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    }),
+
+  getAdminServices: () => apiClient('/admin/services'),
+  createAdminService: (payload) =>
+    apiClient('/admin/services', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+  updateAdminService: (id, payload) =>
+    apiClient(`/admin/services/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    }),
+
+  getAdminGuidelines: () => apiClient('/admin/guidelines'),
+  createAdminGuideline: (payload) =>
+    apiClient('/admin/guidelines', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+  updateAdminGuideline: (id, payload) =>
+    apiClient(`/admin/guidelines/${id}`, {
+      method: 'PATCH',
       body: JSON.stringify(payload),
     }),
 };
