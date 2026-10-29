@@ -456,7 +456,13 @@ Built as a full-stack web development project focused on company service present
 
 ## License
 
-No license has been specified here. Add a `LICENSE` file and update this section once the project’s intended license has been selected.
+**Copyright © 2026 N.P. Associates. All rights reserved.**
+
+This repository and its contents are provided for viewing purposes only. Unless expressly authorized in writing by the copyright holder, no permission is granted to copy, reproduce, modify, distribute, publish, or commercially use this source code or its associated materials.
+
+All rights not expressly granted are reserved by the copyright holder.
+
+For permission to use this code, please contact the copyright holder.
 
 ---
 
