@@ -15,10 +15,12 @@ export async function connectDB() {
 
   try {
     const conn = await mongoose.connect(env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000,
+      retryWrites: true,
+      w: 'majority',
     });
     isConnected = true;
-    console.log(`[DB] Connected to MongoDB: ${conn.connection.host}`);
+    console.log(`[DB] Connected to MongoDB Atlas / Database: ${conn.connection.host}`);
     return conn.connection;
   } catch (error) {
     console.error('[DB] Connection error:', error.message);
