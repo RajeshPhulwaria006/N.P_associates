@@ -2,19 +2,19 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Install dependencies needed for production
-COPY package*.json ./
-RUN npm ci --omit=dev
+COPY package.json package-lock.json ./
+COPY client/package.json ./client/package.json
+COPY server/package.json ./server/package.json
 
-# Copy server application code
-COPY src ./src
-COPY eslint.config.js ./
+RUN npm ci --workspace=server --include-workspace-root --omit=dev
 
-# Set environment
+COPY server/src/ ./server/src/
+
+WORKDIR /app/server
+
 ENV NODE_ENV=production
 ENV PORT=5000
 
 EXPOSE 5000
 
-# Run API server
 CMD ["node", "src/server.js"]
