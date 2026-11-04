@@ -2,8 +2,8 @@ services:
   # Express Backend API
   server:
     build:
-      context: ./server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: server/Dockerfile
     container_name: np_associates_server
     restart: unless-stopped
     ports:
@@ -20,11 +20,12 @@ services:
   # React Frontend (Nginx SPA + Reverse Proxy)
   client:
     build:
-      context: ./client
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: client/Dockerfile
     container_name: np_associates_client
     restart: unless-stopped
     ports:
       - "${CLIENT_PORT:-80}:80"
     depends_on:
       - server
+      
