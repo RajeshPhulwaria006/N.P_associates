@@ -14,10 +14,12 @@ export function csrfProtection(req, res, next) {
     res.cookie(CSRF_COOKIE_NAME, token, {
       httpOnly: false, // Must be readable by client script to include in header
       secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       path: '/',
     });
   }
+  // Allow the frontend to retrieve the CSRF token via CORS.
+  res.setHeader('X-CSRF-Token', token);
 
   if (safeMethods.includes(req.method)) {
     return next();

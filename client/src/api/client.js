@@ -12,10 +12,24 @@ export class ApiError extends Error {
   }
 }
 
-function getCsrfToken() {
-  if (typeof document === 'undefined') return '';
-  const match = document.cookie.match(/np_csrf_token=([^;]+)/);
-  return match ? match[1] : '';
+async function getCsrfToken() {
+  const res = await fetch(`${API_BASE}/health`, {
+    method: 'GET',
+    credentials: 'include',
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Unable to initialize CSRF protection');
+  }
+
+  const token = res.headers.get('X-CSRF-Token');
+
+  if (!token) {
+    throw new Error('CSRF token missing from server response');
+  }
+
+  return token;
 }
 
 export async function apiClient(endpoint, options = {}) {
@@ -26,9 +40,11 @@ export async function apiClient(endpoint, options = {}) {
     ...options.headers,
   };
 
-  const csrfToken = getCsrfToken();
-  if (csrfToken && !headers['X-CSRF-Token']) {
-    headers['X-CSRF-Token'] = csrfToken;
+  const method = (options.method || 'GET').toUpperCase();
+  const safeMethods = ['GET', 'HEAD', 'OPTIONS'];
+
+  if (!safeMethods.includes(method) && !headers['X-CSRF-Token']) {
+    headers['X-CSRF-Token'] = await getCsrfToken();
   }
 
   const config = {
