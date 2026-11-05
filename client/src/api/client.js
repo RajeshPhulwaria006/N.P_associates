@@ -1,6 +1,6 @@
 // Native fetch wrapper with consistent error normalization and CSRF token handling
 
-const API_BASE = '/api/v1';
+const API_BASE = 'https://n-p-associates-1.onrender.com/api/v1';
 
 export class ApiError extends Error {
   constructor(message, statusCode, code, details = null) {

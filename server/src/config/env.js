@@ -6,7 +6,7 @@ dotenv.config();
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().default(5000),
-  CLIENT_ORIGIN: z.string().default('http://localhost:3000'),
+  CLIENT_ORIGIN: z.string().default('https://n-p-associates.pages.dev/'),
   // MONGODB_URI is optional in test/dev so health-check / route testing can run without a live database.
   // In production, it must be provided.
   MONGODB_URI: z.string().optional(),
