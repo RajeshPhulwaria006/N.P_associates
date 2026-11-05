@@ -5,7 +5,7 @@ import { connectDB } from './config/database.js';
 async function startServer() {
   await connectDB();
 
-  const server = app.listen(env.PORT, () => {
+  const server = app.listen(env.PORT, '0.0.0.0', () => {
     console.log(`[Server] N.P Associates API listening on port ${env.PORT} in ${env.NODE_ENV} mode`);
   });
 

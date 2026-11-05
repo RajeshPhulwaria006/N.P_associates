@@ -28,6 +28,8 @@ export default function EnquiryForm({ defaultService = '' }) {
     { value: 'personal-loan', label: language === 'hi' ? 'व्यक्तिगत ऋण (Personal Loan)' : 'Personal Loan' },
     { value: 'vehicle-loan', label: language === 'hi' ? 'वाहन ऋण (Vehicle Loan)' : 'Vehicle Loan' },
     { value: 'loan-against-property', label: language === 'hi' ? 'संपत्ति पर ऋण (Loan Against Property)' : 'Loan Against Property' },
+    { value: 'life-insurance', label: language === 'hi' ? 'जीवन बीमा (Life Insurance)' : 'Life Insurance' },
+    { value: 'health-insurance', label: language === 'hi' ? 'स्वास्थ्य बीमा (Health Insurance)' : 'Health Insurance' },
     { value: 'other-services', label: language === 'hi' ? 'अन्य वित्तीय सेवाएं (Other Services)' : 'Other Services' },
   ];
 

@@ -31,6 +31,8 @@ const enquirySchema = new mongoose.Schema(
         'personal-loan',
         'vehicle-loan',
         'loan-against-property',
+        'life-insurance',
+        'health-insurance',
         'other-services',
       ],
       index: true,

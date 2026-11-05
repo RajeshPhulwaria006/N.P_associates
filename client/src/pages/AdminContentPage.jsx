@@ -400,6 +400,8 @@ export default function AdminContentPage() {
                   <option value="personal-loan">Personal Loan</option>
                   <option value="vehicle-loan">Vehicle Loan</option>
                   <option value="loan-against-property">Loan Against Property</option>
+                  <option value="life-insurance">Life Insurance</option>
+                  <option value="health-insurance">Health Insurance</option>
                   <option value="other-services">Other Services</option>
                 </select>
               </FormField>

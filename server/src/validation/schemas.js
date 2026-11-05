@@ -6,6 +6,8 @@ export const serviceCategoryEnum = z.enum([
   'personal-loan',
   'vehicle-loan',
   'loan-against-property',
+  'life-insurance',
+  'health-insurance',
   'other-services',
 ]);
 
